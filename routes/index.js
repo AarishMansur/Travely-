@@ -1,4 +1,4 @@
-// routes/index.js - all SafeRoute pages/HTMX endpoints
+// routes/index.js - all Travely pages/HTMX endpoints
 //   GET  /            landing page (marketing)
 //   GET  /explore     search app (places + safety map)
 //   POST /explore/search
@@ -101,7 +101,7 @@ async function loadCommunity(placeKey) {
   }
 }
 
-// Render the SafeRoute community reviews partial (also used for form errors,
+// Render the Travely community reviews partial (also used for form errors,
 // which we answer with HTTP 200 so htmx always swaps the message in).
 async function renderCommunity(res, { placeKey, placeName, notice = null, status = 200 }) {
   const reviews = placeKey ? await loadCommunity(placeKey) : [];
@@ -117,7 +117,7 @@ async function renderCommunity(res, { placeKey, placeName, notice = null, status
 // Landing page (marketing) and the search app
 // ---------------------------------------------------------------------------
 router.get("/", (req, res) => {
-  res.render("landing", { title: "SafeRoute · Travel far. Feel safe everywhere." });
+  res.render("landing", { title: "Travely · Travel far. Feel safe everywhere." });
 });
 
 router.get("/explore", (req, res) => {
@@ -273,7 +273,7 @@ router.post("/reviews", reviewRateLimit, async (req, res) => {
   return renderCommunity(res, {
     placeKey,
     placeName,
-    notice: "Thanks! Your review is now part of the SafeRoute community ratings.",
+    notice: "Thanks! Your review is now part of the Travely community ratings.",
   });
 });
 

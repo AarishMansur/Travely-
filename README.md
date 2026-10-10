@@ -1,6 +1,6 @@
-# SafeRoute
+# Travely
 
-**Find safer places to travel.** SafeRoute helps women research destinations by combining live search data from SerpApi (Google Maps places, Google reviews, Reddit/Quora discussions) with reviews written by other women on the site.
+**Find safer places to travel.** Travely helps women research destinations by combining live search data from SerpApi (Google Maps places, Google reviews, Reddit/Quora discussions) with reviews written by other women on the site.
 
 Built for the **SerpApi India Hackathon 2026** — Travel & Local Discovery track.
 
@@ -36,13 +36,13 @@ cp .env.example .env   # then edit .env
 | Variable | What it is |
 |---|---|
 | `SERPAPI_KEY` | Your key from https://serpapi.com/manage-api-key (server-side only, never sent to the browser) |
-| `MONGODB_URI` | e.g. `mongodb://127.0.0.1:27017/saferoute` (or a MongoDB Atlas URL) |
+| `MONGODB_URI` | e.g. `mongodb://127.0.0.1:27017/travely` (or a MongoDB Atlas URL) |
 | `PORT` | defaults to `3000` |
 
 Start MongoDB (any one of these):
 
 ```bash
-docker run -d --name saferoute-mongo -p 27017:27017 mongo
+docker run -d --name travely-mongo -p 27017:27017 mongo
 # or use a local MongoDB install / Atlas and set MONGODB_URI accordingly
 ```
 
@@ -56,7 +56,7 @@ npm run dev
 
 ## How SerpApi is used
 
-| Engine | Params | Role in SafeRoute |
+| Engine | Params | Role in Travely |
 |---|---|---|
 | `google_maps` | `q: "tourist attractions in <city>"`, `hl: "en"` | Finds the places shown as cards (name, rating, address, thumbnail, `data_id`). |
 | `google_maps_reviews` | `data_id: <place data_id>`, `hl: "en"` | Fetches the top Google reviews for a place's safety panel. |
@@ -68,7 +68,7 @@ The API key lives in `.env` and is only ever used server-side in `services/serpa
 
 A deliberately simple, transparent heuristic (`services/safetyScore.js`):
 
-1. Collect all public text: Google review snippets, Reddit/Quora titles + snippets, and SafeRoute community review text.
+1. Collect all public text: Google review snippets, Reddit/Quora titles + snippets, and Travely community review text.
 2. Count positive keywords (`safe`, `well lit`, `helpful`, `friendly`, `crowded`, `police`) vs negative ones (`unsafe`, `harass`, `stared`, `scam`, `followed`, `dark`, `avoid`).
 3. Score = `50 + 10 × (positive − negative)`, clamped to 0–100.
 4. If community reviews exist, blend: `60% keyword score + 40% community score` (community score = average safety rating × 20 × 0.6 + average overall rating × 20 × 0.4).

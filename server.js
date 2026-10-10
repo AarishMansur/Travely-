@@ -5,7 +5,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/saferoute";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/travely";
 
 const app = express();
 
@@ -42,13 +42,13 @@ mongoose
   .then(() => {
     console.log("MongoDB connected:", MONGODB_URI);
     app.listen(PORT, () => {
-      console.log(`SafeRoute running at http://localhost:${PORT}`);
+      console.log(`Travely running at http://localhost:${PORT}`);
     });
   })
   .catch((err) => {
     console.error("\nCould not connect to MongoDB.");
     console.error("Start it locally, for example:");
-    console.error("  docker run -d --name saferoute-mongo -p 27017:27017 mongo");
+    console.error("  docker run -d --name travely-mongo -p 27017:27017 mongo");
     console.error("or set MONGODB_URI in .env to a MongoDB Atlas URL.");
     console.error("Error:", err.message, "\n");
     process.exit(1);

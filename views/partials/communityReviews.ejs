@@ -1,6 +1,6 @@
-<%#partials/communityReviews.ejs - SafeRoute user reviews for one place%>
+<%#partials/communityReviews.ejs - Travely user reviews for one place%>
 <div class="community">
-  <h4>SafeRoute community reviews <% if (reviews && reviews.length) { %><span class="muted">(<%= reviews.length %>)</span><% } %></h4>
+  <h4>Travely community reviews <% if (reviews && reviews.length) { %><span class="muted">(<%= reviews.length %>)</span><% } %></h4>
 
   <% if (notice) { %>
     <div class="notice notice-<%= notice.indexOf("Thanks") === 0 ? "ok" : "error" %>"><%= notice %></div>

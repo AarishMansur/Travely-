@@ -14,7 +14,7 @@
   }
   // Marker colour straight from the Google star rating in the search results
   // (4.6 stars -> 92 -> green). No extra SerpApi calls for the map.
-  // Replaced by the exact SafeRoute score once details are opened.
+  // Replaced by the exact Travely score once details are opened.
   function proxyColor(rating) {
     if (!rating) return GREY; // no rating -> grey (unscored)
     return colorFor(Math.round(rating * 20));

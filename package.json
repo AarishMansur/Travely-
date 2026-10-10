@@ -1,7 +1,7 @@
 {
-  "name": "saferoute",
+  "name": "travely",
   "version": "1.0.0",
-  "description": "SafeRoute - find safer places to travel, powered by SerpApi + community reviews",
+  "description": "Travely - find safer places to travel, powered by SerpApi + community reviews",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
