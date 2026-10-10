@@ -1,0 +1,21 @@
+<%- include("partials/header") %>
+
+<main class="container">
+  <section class="explore-hero">
+    <h1>Where to next?</h1>
+    <p class="lead">Search a city to see tourist spots on a safety map, with live Google Maps data, Google reviews, Reddit &amp; Quora discussions, and reviews from other women on SafeRoute.</p>
+
+    <!-- htmx: POST /explore/search and swap the response into #results (no page reload) -->
+    <form class="search-form" hx-post="/explore/search" hx-target="#results" hx-swap="innerHTML" hx-indicator="#search-spinner">
+      <label class="sr-only" for="q">Where do you want to travel?</label>
+      <input id="q" type="text" name="q" placeholder="e.g. Jaipur, Goa, Manali" maxlength="100" autocomplete="off" required />
+      <button type="submit">Search places</button>
+    </form>
+    <p id="search-spinner" class="htmx-indicator loading">Searching SerpApi&hellip;</p>
+  </section>
+
+  <!-- Search results (partials/places.ejs: safety map + cards) load here -->
+  <section id="results" aria-live="polite"></section>
+</main>
+
+<%- include("partials/footer") %>

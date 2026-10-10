@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SafeRoute — Travel far. Feel safe everywhere.</title>
+  <meta name="description" content="SafeRoute turns live Google reviews, Reddit and Quora discussions, and community stories into clear safety insights for women travelers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/shared.css" />
+  <link rel="stylesheet" href="/css/landing.css" />
+</head>
+<body class="landing">
+<%- include("partials/navbar") %>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero">
+  <div class="hero-copy reveal">
+    <h1>
+      <span class="hero-line">Travel far.</span>
+      <span class="hero-line">Feel <em>safe</em> everywhere.</span>
+    </h1>
+    <p class="hero-sub">SafeRoute turns live Google reviews, Reddit and Quora discussions, and community stories into clear safety insights for women travelers.</p>
+    <div class="hero-cta">
+      <a class="btn-dark" href="/explore">Get started</a>
+      <a class="btn-line" href="#how-it-works">See how it works</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <%# Rotating circular text badge (SVG textPath) %>
+    <div class="badge-rot" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <defs>
+          <path id="circlePath" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" />
+        </defs>
+        <text><textPath href="#circlePath">SAFER JOURNEYS &bull; FOR EVERYONE &bull; </textPath></text>
+      </svg>
+      <svg class="badge-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.9 6.9 4.2 10.2 12 12-7.8 1.8-11.1 5.1-12 12-.9-6.9-4.2-10.2-12-12C7.8 10.2 11.1 6.9 12 0z"/></svg>
+    </div>
+
+    <%# Center portrait (image added at /public/Hero-image.jpg) %>
+    <figure class="hero-photo">
+      <img src="/Hero-image.jpg" alt="Woman traveler planning her route" onerror="this.remove()" />
+      <div class="hero-photo-fallback" role="img" aria-label="Placeholder for the hero portrait">
+        <!-- Fallback if /public/Hero-image.jpg is missing -->
+        <span>hero.jpg</span>
+      </div>
+    </figure>
+
+    <%# Floating glass cards around the center %>
+    <div class="float-card float-left reveal">
+      <svg class="fc-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+      <div><strong>Know before you go.</strong><span>Safety scores from real reviews.</span></div>
+    </div>
+
+    <div class="float-card float-right reveal">
+      <div class="avatar-stack" aria-hidden="true">
+        <span class="avatar a1">G</span><span class="avatar a2">R</span><span class="avatar a3">Q</span>
+      </div>
+      <div><strong>Real voices, everywhere.</strong><span>Google, Reddit and Quora in one place.</span></div>
+    </div>
+
+    <div class="float-note float-bl reveal">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      Powered by live SerpApi search data
+    </div>
+
+    <div class="float-note float-br reveal">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.9 6.9 4.2 10.2 12 12-7.8 1.8-11.1 5.1-12 12-.9-6.9-4.2-10.2-12-12C7.8 10.2 11.1 6.9 12 0z"/></svg>
+      Less guessing. More confidence.
+    </div>
+
+    <%# Curved arc of mini feature cards around the photo %>
+    <svg class="connectors" viewBox="0 0 1100 560" fill="none" aria-hidden="true">
+      <path d="M180 180 C 320 120, 420 180, 500 250" stroke="#ddd6cb" stroke-width="1.5"/>
+      <path d="M920 180 C 780 120, 680 180, 600 250" stroke="#ddd6cb" stroke-width="1.5"/>
+      <path d="M180 400 C 320 460, 420 420, 500 350" stroke="#ddd6cb" stroke-width="1.5"/>
+    </svg>
+    <div class="arc arc-1 reveal">
+      <span class="arc-num">86/100</span>
+      <span class="arc-label">Safety score</span>
+    </div>
+    <div class="arc arc-2 reveal">
+      <span class="arc-num">72</span>
+      <span class="arc-label">Night safety</span>
+    </div>
+    <div class="arc arc-3 reveal">
+      <span class="arc-num">1.5x</span>
+      <span class="arc-label">Solo-woman weight</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================ BENTO FEATURES ============================ -->
+<section id="features" class="section">
+  <div class="section-head reveal">
+    <h2>Everything you need to travel with confidence.</h2>
+    <p>Live data, public voices and community stories &mdash; combined into one calm, clear picture.</p>
+  </div>
+
+  <div class="bento">
+    <%# 1. Large card: smart safety score with score ring + day/night bars %>
+    <div class="bento-card span-7 reveal">
+      <div class="bento-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <h3>Smart safety score</h3>
+      <p>A transparent 0&ndash;100 score built from review language &mdash; weighted by recency and boosted for solo-women experiences.</p>
+      <div class="mock">
+        <div class="mock-ring" style="--pct: 86">
+          <span>86</span>
+        </div>
+        <div class="mock-bars">
+          <div class="mock-bar-row"><span>Day</span><div class="mock-bar"><i style="width: 88%"></i></div></div>
+          <div class="mock-bar-row"><span>Night</span><div class="mock-bar"><i style="width: 72%"></i></div></div>
+        </div>
+      </div>
+    </div>
+
+    <%# 2. Medium card: day vs night %>
+    <div class="bento-card span-5 reveal">
+      <div class="bento-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </div>
+      <h3>Day vs night insights</h3>
+      <p>Reviews that mention night, evening or late get their own sub-score &mdash; because safety changes after dark.</p>
+      <div class="mock">
+        <div class="mock-bar-row"><span>Day</span><div class="mock-bar"><i style="width: 88%"></i></div><b>88</b></div>
+        <div class="mock-bar-row"><span>Night</span><div class="mock-bar"><i style="width: 72%"></i></div><b>72</b></div>
+      </div>
+    </div>
+
+    <%# 3. Medium card: community reviews %>
+    <div class="bento-card span-5 reveal">
+      <div class="bento-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H5l-2 2V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z"/></svg>
+      </div>
+      <h3>Community reviews</h3>
+      <p>Women share when they visited, whether they travelled alone, and how safe they felt &mdash; no account needed.</p>
+      <div class="mock">
+        <div class="mock-bubble">
+          <div class="mock-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+          <p>Well lit near the fort, police on duty. Felt comfortable walking alone.</p>
+          <span class="mock-tag">Traveled alone</span>
+        </div>
+        <div class="mock-bubble">
+          <div class="mock-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>Helpful locals, crowded lanes. Avoid the dark stretch after 9pm.</p>
+          <span class="mock-tag">Evening visit</span>
+        </div>
+      </div>
+    </div>
+
+    <%# 4. Wide dark card: Reddit and Quora voices %>
+    <div class="bento-card span-7 dark reveal">
+      <div class="bento-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12h7M12 8.5v7"/></svg>
+      </div>
+      <h3>Reddit and Quora voices</h3>
+      <p>We search public discussions for the exact place and surface the most relevant threads &mdash; titles, snippets and links.</p>
+      <div class="mock">
+        <div class="mock-snippet">
+          <span class="mock-src src-reddit">Reddit</span>
+          <p>Solo female travel in Jaipur &mdash; is Hawa Mahal safe?</p>
+        </div>
+        <div class="mock-snippet">
+          <span class="mock-src src-quora">Quora</span>
+          <p>Is Jaipur safe for solo women tourists? Precautions?</p>
+        </div>
+      </div>
+    </div>
+
+    <%# 5. Large card: safety map %>
+    <div class="bento-card span-7 reveal">
+      <div class="bento-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      </div>
+      <h3>Safety map</h3>
+      <p>Every place on a live map. Markers start grey and turn green, yellow or red as you open their safety details.</p>
+      <div class="mock">
+        <div class="mock-map" aria-hidden="true">
+          <span class="pin pin-green" style="top: 22%; left: 28%"></span>
+          <span class="pin pin-yellow" style="top: 48%; left: 58%"></span>
+          <span class="pin pin-red" style="top: 66%; left: 34%"></span>
+          <span class="pin pin-grey" style="top: 34%; left: 74%"></span>
+        </div>
+      </div>
+    </div>
+
+    <%# 6. Medium card: compare destinations %>
+    <div class="bento-card span-5 reveal">
+      <div class="bento-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg>
+      </div>
+      <h3>Compare destinations</h3>
+      <p>Two cities side by side &mdash; overall, day and night &mdash; scored from the top 3 places each.</p>
+      <div class="mock">
+        <div class="mock-compare">
+          <div class="mock-city"><span>Jaipur</span><b>82</b></div>
+          <div class="mock-city"><span>Goa</span><b>71</b></div>
+          <span class="mock-safer">Jaipur is safer</span>
+        </div>
+      </div>
+    </div>
+
+    <%# 7. Small wide card: live data %>
+    <div class="bento-card span-12 reveal live-data">
+      <div class="bento-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+      </div>
+      <div>
+        <h3>Live data, always fresh</h3>
+        <p>Always fresh results via SerpApi &mdash; Google Maps, Google reviews, Reddit and Quora &mdash; cached for 24 hours so it stays fast and cheap.</p>
+      </div>
+      <span class="live-dot" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HOW IT WORKS ============================ -->
+<section id="how-it-works" class="section">
+  <div class="section-head reveal">
+    <h2>How it works</h2>
+    <p>Three steps between you and a clearer picture of any destination.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step reveal">
+      <span class="step-num">01</span>
+      <h3>Search a destination</h3>
+      <p>Type a city and see its tourist places on a safety map &mdash; live from Google Maps via SerpApi.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">02</span>
+      <h3>See safety insights</h3>
+      <p>Google reviews, Reddit and Quora discussions and community stories become one transparent score &mdash; day and night.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">03</span>
+      <h3>Share your own review</h3>
+      <p>Visited a place? Tell other women when you went, whether you travelled alone, and how safe you felt.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CTA ============================ -->
+<section class="cta reveal">
+  <h2>Plan your next trip with peace of mind.</h2>
+  <a class="btn-white" href="/explore">Start exploring</a>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="landing-footer">
+  <div class="lf-inner">
+    <a class="nav-logo" href="/">Safe<span>Route</span></a>
+    <nav class="lf-links" aria-label="Footer">
+      <a href="/#features">Features</a>
+      <a href="/#how-it-works">How it works</a>
+      <a href="/compare">Compare</a>
+      <a href="/explore">Explore</a>
+    </nav>
+    <p class="lf-disclaimer">Safety scores are estimates based on public reviews, not a guarantee of safety.</p>
+    <p class="lf-copy">Built for the SerpApi India Hackathon 2026 &middot; Travel &amp; Local Discovery</p>
+  </div>
+</footer>
+
+<script src="/js/landing.js" defer></script>
+</body>
+</html>

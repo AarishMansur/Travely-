@@ -1,0 +1,106 @@
+<%#partials/compareResult.ejs - side-by-side city comparison returned by POST /compare%>
+<%# Helper: score band for marker/badge colours %>
+<% function bandFor(s) { return s >= 70 ? "high" : s >= 40 ? "mid" : "low"; } %>
+
+<% var aOk = !cityA.error && cityA.overall !== null; %>
+<% var bOk = !cityB.error && cityB.overall !== null; %>
+<% var safer = aOk && bOk ? (cityA.overall === cityB.overall ? null : cityA.overall > cityB.overall ? "A" : "B") : null; %>
+
+<% if (usingCached) { %>
+  <p class="cached-note">Using cached data (24-hour MongoDB cache) &mdash; no SerpApi credits were used for this comparison.</p>
+<% } %>
+
+<% if (safer) { %>
+  <% var w = safer === "A" ? cityA : cityB; %>
+  <% var l = safer === "A" ? cityB : cityA; %>
+  <div class="safer-banner">
+    <strong><%= w.query %> looks safer</strong>
+    &mdash; it scores <%= w.overall - l.overall %> points higher overall, with <%= w.signals.harassment %> harassment mentions across its top places vs <%= l.signals.harassment %>.
+  </div>
+<% } %>
+
+<div class="compare-grid">
+  <%# ---- City A card ---- %>
+  <article class="city-card <%= safer === "A" ? "safer" : "" %>">
+    <% if (safer === "A") { %><span class="safer-badge">Safer choice</span><% } %>
+    <header>
+      <h3><%= cityA.query || "City A" %></h3>
+      <% if (cityA.error) { %><div class="notice notice-error"><%= cityA.error %></div><% } %>
+    </header>
+    <% if (aOk) { %>
+      <div class="city-score">
+        <div class="score-badge score-<%= bandFor(cityA.overall) %>">
+          <span class="score-num"><%= cityA.overall %></span><span class="score-den">/100</span>
+        </div>
+        <div class="city-sub">
+          <div class="score-sub-item">
+            <span class="score-sub-label">Day</span>
+            <div class="bar"><div class="bar-fill" style="width: <%= cityA.day %>%"></div></div>
+            <strong><%= cityA.day %></strong>
+          </div>
+          <div class="score-sub-item">
+            <span class="score-sub-label">Night</span>
+            <div class="bar"><div class="bar-fill" style="width: <%= cityA.night %>%"></div></div>
+            <strong><%= cityA.night %></strong>
+          </div>
+        </div>
+      </div>
+      <div class="signals">
+        <span class="signal signal-harassment">Harassment <b><%= cityA.signals.harassment %></b></span>
+        <span class="signal">Crowd / lighting <b><%= cityA.signals.crowdLighting %></b></span>
+        <span class="signal">Helpful locals <b><%= cityA.signals.helpfulLocals %></b></span>
+      </div>
+      <ol class="city-places">
+        <% cityA.places.forEach(function (p) { %>
+          <li>
+            <span class="place-name"><%= p.name %></span>
+            <span class="place-score"><%= p.score.overall %></span>
+            <span class="place-sub">D <%= p.score.day %> &middot; N <%= p.score.night %></span>
+          </li>
+        <% }) %>
+      </ol>
+    <% } %>
+  </article>
+
+  <%# ---- City B card ---- %>
+  <article class="city-card <%= safer === "B" ? "safer" : "" %>">
+    <% if (safer === "B") { %><span class="safer-badge">Safer choice</span><% } %>
+    <header>
+      <h3><%= cityB.query || "City B" %></h3>
+      <% if (cityB.error) { %><div class="notice notice-error"><%= cityB.error %></div><% } %>
+    </header>
+    <% if (bOk) { %>
+      <div class="city-score">
+        <div class="score-badge score-<%= bandFor(cityB.overall) %>">
+          <span class="score-num"><%= cityB.overall %></span><span class="score-den">/100</span>
+        </div>
+        <div class="city-sub">
+          <div class="score-sub-item">
+            <span class="score-sub-label">Day</span>
+            <div class="bar"><div class="bar-fill" style="width: <%= cityB.day %>%"></div></div>
+            <strong><%= cityB.day %></strong>
+          </div>
+          <div class="score-sub-item">
+            <span class="score-sub-label">Night</span>
+            <div class="bar"><div class="bar-fill" style="width: <%= cityB.night %>%"></div></div>
+            <strong><%= cityB.night %></strong>
+          </div>
+        </div>
+      </div>
+      <div class="signals">
+        <span class="signal signal-harassment">Harassment <b><%= cityB.signals.harassment %></b></span>
+        <span class="signal">Crowd / lighting <b><%= cityB.signals.crowdLighting %></b></span>
+        <span class="signal">Helpful locals <b><%= cityB.signals.helpfulLocals %></b></span>
+      </div>
+      <ol class="city-places">
+        <% cityB.places.forEach(function (p) { %>
+          <li>
+            <span class="place-name"><%= p.name %></span>
+            <span class="place-score"><%= p.score.overall %></span>
+            <span class="place-sub">D <%= p.score.day %> &middot; N <%= p.score.night %></span>
+          </li>
+        <% }) %>
+      </ol>
+    <% } %>
+  </article>
+</div>

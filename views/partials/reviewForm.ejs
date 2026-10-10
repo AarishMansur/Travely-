@@ -1,0 +1,60 @@
+<%#partials/reviewForm.ejs - anonymous review form (htmx POST to /reviews)%>
+<form class="review-form"
+      hx-post="/reviews"
+      hx-target="#community-<%= domId %>"
+      hx-swap="innerHTML"
+      hx-indicator="#review-spinner">
+  <h4>Add your SafeRoute review</h4>
+  <p class="muted small">No account needed. Please keep it factual and respectful &mdash; HTML tags are stripped and posting is rate limited.</p>
+
+  <%# Values travel with the form so the review is saved against the right place %>
+  <input type="hidden" name="placeKey" value="<%= placeKey %>" />
+  <input type="hidden" name="placeName" value="<%= name %>" />
+
+  <div class="form-row">
+    <fieldset>
+      <legend>Overall rating *</legend>
+      <div class="stars">
+        <% [1, 2, 3, 4, 5].forEach(function (n) { %>
+          <label><input type="radio" name="rating" value="<%= n %>" required /> <%= n %></label>
+        <% }) %>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>How safe did you feel? *</legend>
+      <div class="stars">
+        <% [1, 2, 3, 4, 5].forEach(function (n) { %>
+          <label><input type="radio" name="safetyRating" value="<%= n %>" required /> <%= n %></label>
+        <% }) %>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="form-row">
+    <label class="field">
+      Time of day visited
+      <select name="timeOfDay">
+        <option value="morning">Morning</option>
+        <option value="afternoon" selected>Afternoon</option>
+        <option value="evening">Evening</option>
+        <option value="night">Night</option>
+      </select>
+    </label>
+    <label class="field">
+      Were you travelling alone?
+      <select name="travelledAlone">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+    </label>
+  </div>
+
+  <label class="field">
+    Your review *
+    <textarea name="text" rows="4" maxlength="1000" required
+      placeholder="e.g. Well lit near the fort in the evening, police on duty, felt comfortable walking alone..."></textarea>
+  </label>
+
+  <button class="btn" type="submit">Post review</button>
+  <span id="review-spinner" class="htmx-indicator loading">Posting&hellip;</span>
+</form>

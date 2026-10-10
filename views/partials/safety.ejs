@@ -1,0 +1,98 @@
+<%#partials/safety.ejs - safety details for one place, loaded by "See safety details"%>
+<% if (error) { %>
+  <div class="notice notice-error"><%= error %></div>
+<% } else { %>
+  <div class="safety">
+    <div class="safety-head">
+      <div class="score-badge score-<%= score.band %>" title="<%= score.bandLabel %>">
+        <span class="score-num"><%= score.overall %></span>
+        <span class="score-den">/100</span>
+      </div>
+      <div class="safety-title">
+        <h3>Safety details: <%= name %></h3>
+        <% if (address) { %><p class="muted"><%= address %></p><% } %>
+        <p class="score-band score-band-<%= score.band %>"><%= score.bandLabel %></p>
+      </div>
+      <button class="btn btn-ghost" type="button" onclick="this.closest('.details').innerHTML = ''" title="Hide details">Hide</button>
+    </div>
+
+    <%# Day vs night sub-scores (small bars) %>
+    <div class="score-sub">
+      <div class="score-sub-item">
+        <span class="score-sub-label">Day</span>
+        <div class="bar"><div class="bar-fill" style="width: <%= score.day %>%"></div></div>
+        <strong><%= score.day %></strong>
+      </div>
+      <div class="score-sub-item">
+        <span class="score-sub-label">Night</span>
+        <div class="bar"><div class="bar-fill" style="width: <%= score.night %>%"></div></div>
+        <strong><%= score.night %></strong>
+      </div>
+    </div>
+
+    <%# Sub-signal badges %>
+    <div class="signals">
+      <span class="signal signal-harassment">Harassment mentions <b><%= score.signals.harassment %></b></span>
+      <span class="signal">Crowd / lighting <b><%= score.signals.crowdLighting %></b></span>
+      <span class="signal">Helpful locals <b><%= score.signals.helpfulLocals %></b></span>
+      <span class="signal">Solo-women reviews <b><%= score.signals.soloWomen %></b></span>
+    </div>
+
+    <%# Why the score looks the way it does - transparent heuristic %>
+    <details class="why" open>
+      <summary>Why this score?</summary>
+      <ul>
+        <% score.explanation.forEach(function (line) { %>
+          <li><%= line %></li>
+        <% }) %>
+      </ul>
+      <p class="disclaimer small">This is an estimate based on public reviews, not a guarantee of safety.</p>
+    </details>
+
+    <%# 1. SafeRoute community reviews - always ABOVE the Google results %>
+    <section class="safety-section" id="community-<%= domId %>">
+      <%- include("communityReviews", { reviews: communityReviews, notice: null, placeKey: placeKey, placeName: name }) %>
+    </section>
+
+    <%# Review form for logged-out visitors %>
+    <%- include("reviewForm") %>
+
+    <%# 2. Google reviews (google_maps_reviews engine) %>
+    <section class="safety-section">
+      <h4>Google reviews</h4>
+      <% if (googleReviewsError) { %>
+        <div class="notice"><%= googleReviewsError %></div>
+      <% } else { %>
+        <% googleReviews.forEach(function (r) { %>
+          <article class="review review-google">
+            <div class="review-meta">
+              <strong><%= r.author %></strong>
+              <% if (r.rating) { %><span class="pill pill-stars">&#9733; <%= r.rating %></span><% } %>
+              <% if (r.date) { %><time class="muted"><%= r.date %></time><% } %>
+            </div>
+            <p><%= r.text %></p>
+          </article>
+        <% }) %>
+      <% } %>
+    </section>
+
+    <%# 3. Reddit / Quora discussions (google engine) - titles + snippets only %>
+    <section class="safety-section">
+      <h4>Community discussions</h4>
+      <p class="muted small">Search titles and snippets from Reddit and Quora &mdash; not full threads. Open a result to read the whole discussion.</p>
+      <% if (forums.error) { %>
+        <div class="notice"><%= forums.error %></div>
+      <% } %>
+      <% forums.results.forEach(function (r) { %>
+        <article class="review review-forum">
+          <div class="review-meta">
+            <span class="tag tag-<%= r.source.toLowerCase() %>"><%= r.source %></span>
+            <span class="muted small">Title from search results</span>
+          </div>
+          <h5><a href="<%= r.link %>" target="_blank" rel="noopener noreferrer"><%= r.title %></a></h5>
+          <% if (r.snippet) { %><p><%= r.snippet %></p><% } %>
+        </article>
+      <% }) %>
+    </section>
+  </div>
+<% } %>

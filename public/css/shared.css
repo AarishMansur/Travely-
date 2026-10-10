@@ -1,0 +1,105 @@
+/* shared.css - shared site chrome (navbar) used by landing + app pages */
+.nav {
+  position: sticky;
+  top: 14px;
+  z-index: 60;
+  width: min(1120px, calc(100% - 28px));
+  margin: 14px auto 0;
+}
+.nav-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 10px 8px 20px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.08);
+  transition: box-shadow 0.25s ease;
+}
+.nav.scrolled .nav-inner { box-shadow: 0 16px 44px rgba(17, 17, 17, 0.16); }
+
+.nav-logo {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #141210;
+  text-decoration: none;
+  letter-spacing: -0.3px;
+}
+.nav-logo span { color: #0f8a6d; }
+
+/* Centered floating pill nav */
+.nav-pill {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(17, 17, 17, 0.05);
+  border-radius: 999px;
+}
+.nav-link {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: #55504a;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.nav-link:hover { color: #141210; }
+.nav-link.active { background: #141210; color: #fff; }
+
+.nav-cta {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: #141210;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.nav-cta:hover { background: #000; }
+
+.nav-burger {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: 0;
+  padding: 6px;
+  cursor: pointer;
+  color: #141210;
+}
+.nav-burger .icon-close { display: none; }
+.nav.open .nav-burger .icon-open { display: none; }
+.nav.open .nav-burger .icon-close { display: block; }
+
+@media (max-width: 720px) {
+  .nav-burger { display: block; }
+  .nav-cta { display: none; }
+  .nav-pill {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    transform: none;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 20px;
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    box-shadow: 0 18px 40px rgba(17, 17, 17, 0.16);
+    display: none;
+  }
+  .nav.open .nav-pill { display: flex; }
+  .nav-link { padding: 12px 16px; }
+}

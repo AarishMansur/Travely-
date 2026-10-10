@@ -1,0 +1,25 @@
+<%#partials/communityReviews.ejs - SafeRoute user reviews for one place%>
+<div class="community">
+  <h4>SafeRoute community reviews <% if (reviews && reviews.length) { %><span class="muted">(<%= reviews.length %>)</span><% } %></h4>
+
+  <% if (notice) { %>
+    <div class="notice notice-<%= notice.indexOf("Thanks") === 0 ? "ok" : "error" %>"><%= notice %></div>
+  <% } %>
+
+  <% if (!reviews || !reviews.length) { %>
+    <p class="muted">No community reviews yet &mdash; be the first to share yours below.</p>
+  <% } %>
+
+  <% (reviews || []).forEach(function (r) { %>
+    <article class="review">
+      <div class="review-meta">
+        <span class="pill pill-safety">Safety <%= r.safetyRating %>/5</span>
+        <span class="pill">Overall <%= r.rating %>/5</span>
+        <span class="pill"><%= { morning: "Morning", afternoon: "Afternoon", evening: "Evening", night: "Night" }[r.timeOfDay] || "Afternoon" %></span>
+        <% if (r.travelledAlone) { %><span class="pill pill-alone">Travelled alone</span><% } %>
+        <time class="muted"><%= new Date(r.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) %></time>
+      </div>
+      <p><%= r.text %></p>
+    </article>
+  <% }) %>
+</div>

@@ -1,0 +1,57 @@
+<%#partials/places.ejs - safety map + place cards returned by POST /explore/search%>
+<% if (error) { %>
+  <div class="notice notice-error"><%= error %></div>
+<% } %>
+
+<% if (places && places.length) { %>
+  <%# Safety map: markers are coloured lazily (grey -> green/yellow/red) in /js/map.js %>
+  <div class="map-wrap">
+    <div id="map" class="map" role="img" aria-label="Map of the searched places"></div>
+    <p class="map-hint muted">Marker colours come from each place&rsquo;s Google rating (green/yellow/red) &mdash; opening its safety details swaps in the full SafeRoute score.</p>
+  </div>
+
+  <h2 class="results-title"><%= places.length %> place<%= places.length === 1 ? "" : "s" %> in &ldquo;<%= query %>&rdquo;</h2>
+  <div class="grid">
+    <% places.forEach(function (p, i) { %>
+      <%# data-* attributes feed the Leaflet map (name, gps, data_id) %>
+      <article class="card"
+               data-index="<%= i %>"
+               data-name="<%= p.name %>"
+               data-address="<%= p.address %>"
+               data-data-id="<%= p.dataId %>"
+               data-lat="<%= p.lat === null ? "" : p.lat %>"
+               data-lng="<%= p.lng === null ? "" : p.lng %>"
+               data-rating="<%= p.rating === null ? "" : p.rating %>">
+        <div class="thumb">
+          <% if (p.thumbnail) { %>
+            <img src="<%= p.thumbnail %>" alt="" loading="lazy" />
+          <% } else { %>
+            <span class="thumb-fallback"><%= p.name.charAt(0).toUpperCase() %></span>
+          <% } %>
+        </div>
+        <div class="card-body">
+          <h3><%= p.name %></h3>
+          <% if (p.rating) { %>
+            <p class="rating">&#9733; <%= p.rating %><% if (p.reviewCount) { %> <span class="muted">(<%= p.reviewCount %> Google reviews)</span><% } %></p>
+          <% } %>
+          <% if (p.address) { %><p class="address"><%= p.address %></p><% } %>
+          <% if (p.type) { %><span class="tag"><%= p.type %></span><% } %>
+
+          <button
+            class="btn"
+            hx-get="/place/safety"
+            hx-vals='<%= JSON.stringify({ dataId: p.dataId, name: p.name, address: p.address }) %>'
+            hx-target="#details-<%= i %>"
+            hx-swap="innerHTML"
+            hx-indicator="#details-spin-<%= i %>">
+            See safety details
+          </button>
+          <span id="details-spin-<%= i %>" class="htmx-indicator loading">Loading&hellip;</span>
+
+          <%# Safety details (partials/safety.ejs) are swapped in here %>
+          <div id="details-<%= i %>" class="details"></div>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+<% } %>
