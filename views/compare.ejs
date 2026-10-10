@@ -3,15 +3,15 @@
 <main class="container">
   <section class="explore-hero">
     <h1>Compare destinations</h1>
-    <p class="lead">We score the top 3 tourist places in each city from live Google reviews, then average them into a city score &mdash; day and night included. Everything is cached for 24 hours, so comparing never wastes SerpApi credits.</p>
+    <p class="lead">We score the top 3 tourist places in each city from live Google reviews, then average them into a city score, day and night included. Everything is cached for 24 hours, so comparing never wastes SerpApi credits.</p>
 
     <!-- htmx: POST /compare and swap the side-by-side result into #compare-results -->
     <form class="compare-form" hx-post="/compare" hx-target="#compare-results" hx-swap="innerHTML" hx-indicator="#compare-spinner">
       <label class="sr-only" for="cityA">City A</label>
-      <input id="cityA" type="text" name="cityA" placeholder="City A &mdash; e.g. Jaipur" maxlength="100" autocomplete="off" required />
+      <input id="cityA" type="text" name="cityA" placeholder="City A, e.g. Jaipur" maxlength="100" autocomplete="off" required />
       <span class="vs" aria-hidden="true">vs</span>
       <label class="sr-only" for="cityB">City B</label>
-      <input id="cityB" type="text" name="cityB" placeholder="City B &mdash; e.g. Goa" maxlength="100" autocomplete="off" required />
+      <input id="cityB" type="text" name="cityB" placeholder="City B, e.g. Goa" maxlength="100" autocomplete="off" required />
       <button type="submit">Compare</button>
     </form>
     <p id="compare-spinner" class="htmx-indicator loading">Scoring cities&hellip;</p>

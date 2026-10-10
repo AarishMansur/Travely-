@@ -117,7 +117,7 @@ async function renderCommunity(res, { placeKey, placeName, notice = null, status
 // Landing page (marketing) and the search app
 // ---------------------------------------------------------------------------
 router.get("/", (req, res) => {
-  res.render("landing", { title: "SafeRoute — Travel far. Feel safe everywhere." });
+  res.render("landing", { title: "SafeRoute · Travel far. Feel safe everywhere." });
 });
 
 router.get("/explore", (req, res) => {

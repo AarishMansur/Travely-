@@ -7,15 +7,15 @@
 <% var safer = aOk && bOk ? (cityA.overall === cityB.overall ? null : cityA.overall > cityB.overall ? "A" : "B") : null; %>
 
 <% if (usingCached) { %>
-  <p class="cached-note">Using cached data (24-hour MongoDB cache) &mdash; no SerpApi credits were used for this comparison.</p>
+  <p class="cached-note">Using cached data (24-hour MongoDB cache). No SerpApi credits were used for this comparison.</p>
 <% } %>
 
 <% if (safer) { %>
   <% var w = safer === "A" ? cityA : cityB; %>
   <% var l = safer === "A" ? cityB : cityA; %>
   <div class="safer-banner">
-    <strong><%= w.query %> looks safer</strong>
-    &mdash; it scores <%= w.overall - l.overall %> points higher overall, with <%= w.signals.harassment %> harassment mentions across its top places vs <%= l.signals.harassment %>.
+    <strong><%= w.query %> looks safer</strong>:
+    it scores <%= w.overall - l.overall %> points higher overall, with <%= w.signals.harassment %> harassment mentions across its top places vs <%= l.signals.harassment %>.
   </div>
 <% } %>
 
